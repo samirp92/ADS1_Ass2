@@ -56,7 +56,59 @@ def bar_graph2():  # Define a function for bar graph to show trend of Nitrous ox
     plt.savefig('bar_graph-2.jpeg', dpi = 300)  # To save the graph
     plt.show()  # To show the graph
 
+    
+def line_graph1():  # Define a function for line graph to show trend of CO2 emissions for the selected countries
+    df3 = df[df['Indicator Name'].isin(['CO2 emissions (metric tons per capita)'])].reset_index(drop=True)  # To create data frame with required indicator 
+    df3 = df3[df3['Country Name'].isin(['Australia','Brazil','Canada','China','France',
+                                        'Japan','Italy','India','Germany'])].reset_index(drop=True)  # To filter the data frame with required counties
+    df3 = df3.T.reset_index(drop=False)  # To transpose the data
+    df3 = df3.rename(columns=df3.iloc[0])  # To set the columns name
+    df3 = df3.iloc[2:].reset_index(drop=True)  # To remove the first two rows
+    df3.rename({'Country Name': 'Year'}, axis=1, inplace=True)  # To remane the first column of data frame
+    df3['Year'] = pd.to_numeric(df3['Year'])  # To convert the data in numeric
+    df3 = df3.dropna().reset_index(drop=True)  # To remove NaN values from data frame
+    print(df3)  # To print the data frame-3
+    df3.to_excel('df3.xlsx')  # To save the data frame-3
+    df3.plot(x = 'Year', y = ['Australia','Brazil','Canada','China','France','Japan','Italy','India','Germany'], figsize = [18,8])  # To plot line graph       
+    plt.xlabel('Year', fontsize = 15)  # To label the x-axis
+    plt.ylabel('CO2 emissions (metric tons per capita)', fontsize = 15)  # To label the y-axis
+    plt.title('CO2 emissions (metric tons per capita)', size = 18, color = 'black')  # To give title of graph
+    plt.legend(bbox_to_anchor=(1.0, 1.0), fontsize = 15, loc = 'upper left')  # To show the legends
+    plt.rc('xtick', labelsize = 15)  # To increase the xtick font size
+    plt.rc('ytick', labelsize = 15)  # To increase the ytick font size
+    plt.grid()  # To show grid on graph
+    plt.savefig('line_graph-1.jpeg', dpi = 300)  # To save the graph
+    plt.show()  # To show the graph
 
+
+def line_graph2():  # Define a function for line graph to show trend of Urban population for the selected countries
+    df4 = df[df['Indicator Name'].isin(['Population, total'])].reset_index(drop=True)  # To create data frame with required indicator 
+    df4 = df4[df4['Country Name'].isin(['Australia','Brazil','Canada','China','France',
+                                        'Japan','Italy','India','Germany'])].reset_index(drop=True)  # To filter the data frame with required counties
+    df4 = df4.T.reset_index(drop=False)  # To transpose the data
+    df4 = df4.rename(columns=df4.iloc[0])  # To set the columns name
+    df4 = df4.iloc[2:].reset_index(drop=True)  # To remove the first two rows
+    df4.rename({'Country Name': 'Year'}, axis=1, inplace=True)  # To remane the first column of data frame
+    df4['Year'] = pd.to_numeric(df4['Year'])  # To convert the data in numeric
+    df4 = df4.dropna().reset_index(drop=True)  # To remove NaN values from data frame
+    print(df4)  # To print the data frame-4
+    df4.to_excel('df4.xlsx')  # To save the data frame-4
+    df4.plot(x = 'Year', y = ['Australia','Brazil','Canada','China','France','Japan','Italy','India','Germany'], figsize = [18,8])  # To plot line graph
+    plt.xlim(1990, 2020)   # To set the limit on x-axis        
+    plt.xlabel('Year', fontsize = 15)  # To label the x-axis
+    plt.ylabel('Population, total', fontsize = 15)  # To label the y-axis
+    plt.title('Population, total', size = 18, color = 'black')  # To give title of graph
+    plt.legend(bbox_to_anchor=(1.0, 1.0), fontsize = 15, loc = 'upper left')  # To show the legends
+    plt.rc('xtick', labelsize = 15) # To increase the xtick font size
+    plt.rc('ytick', labelsize = 15) # To increase the ytick font size
+    plt.grid()  # To show grid on graph
+    plt.savefig('line_graph-2.jpeg', dpi = 300)  # To save the graph
+    plt.show()  # To show the graph
+    
+    
 bar_graph1()
 bar_graph2()
+line_graph1()
+line_graph2()
+
 
